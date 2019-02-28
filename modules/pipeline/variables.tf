@@ -11,7 +11,7 @@ variable "app_service_name" {
 }
 
 variable "git_repository" {
-  type = "map"
+  type        = "map"
   description = "ecs task environment variables"
 }
 
@@ -28,9 +28,9 @@ variable "subnet_ids" {
   description = "Subnet ids"
 }
 
-variable "region" {
-  description = "The region to use"
-}
+#variable "region" {
+#  description = "The region to use"
+#}
 
 variable "container_name" {
   description = "Container name"

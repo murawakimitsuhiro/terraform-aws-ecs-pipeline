@@ -1,25 +1,25 @@
 # VPC
 variable "cluster_name" {
-  description = "ECS hogehoge cluster Name"
+  description = "ecs hogehoge cluster name"
   default     = ""
 }
 
 variable "alb_port" {
-  description = "Origin Application Load Balancer Port"
+  description = "origin application load balancer port"
 }
 
-# Pipeline
+# pipeline
 variable "container_port" {
-  description = "Destination Application Load Balancer Port"
+  description = "destination application load balancer port"
 }
 
 variable "app_repository_name" {
-  description = "ECR repository name"
+  description = "ecr repository name"
   default     = ""
 }
 
 variable "container_name" {
-  description = "Container app name"
+  description = "container app name"
   default     = ""
 }
 
@@ -39,39 +39,39 @@ variable "helth_check_path" {
   default     = "/"
 }
 
-# ECS
+# ecs
 variable "desired_tasks" {
-  description = "Number of containers desired to run app task"
+  description = "number of containers desired to run app task"
   default     = 2
 }
 
 variable "min_tasks" {
-  description = "Minimum"
+  description = "minimum"
   default     = 2
 }
 
 variable "max_tasks" {
-  description = "Maximum"
+  description = "maximum"
   default     = 4
 }
 
 variable "cpu_to_scale_up" {
-  description = "CPU % to Scale Up the number of containers"
+  description = "cpu % to scale up the number of containers"
   default     = 80
 }
 
 variable "cpu_to_scale_down" {
-  description = "CPU % to Scale Down the number of containers"
+  description = "cpu % to scale down the number of containers"
   default     = 30
 }
 
 variable "desired_task_cpu" {
-  description = "Desired CPU to run your tasks"
+  description = "desired cpu to run your tasks"
   default     = "256"
 }
 
 variable "desired_task_memory" {
-  description = "Desired memory to run your tasks"
+  description = "desired memory to run your tasks"
   default     = "512"
 }
 

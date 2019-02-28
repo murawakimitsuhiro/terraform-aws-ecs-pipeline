@@ -80,11 +80,11 @@ variable "cpu_to_scale_down" {
   description = "CPU % to Scale Down the number of containers"
 }
 
-variable "db_host_endpoint" {
-  description = "RDS generated MySQL DB instance endpoint"
-}
+#variable "db_host_endpoint" {
+#  description = "RDS generated MySQL DB instance endpoint"
+#}
 
 variable "environment_variables" {
-  type = "map"
+  type        = "map"
   description = "ecs task environment variables"
 }

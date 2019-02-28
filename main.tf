@@ -1,12 +1,12 @@
 module "vpc" {
-  source         = "../../modules/vpc"
+  source         = "modules/vpc"
   cluster_name   = "${var.cluster_name}"
   alb_port       = "${var.alb_port}"
   container_port = "${var.container_port}"
 }
 
 module "pipeline" {
-  source              = "../../modules/pipeline"
+  source              = "modules/pipeline"
   cluster_name        = "${var.cluster_name}"
   container_name      = "${var.container_name}"
   app_repository_name = "${var.app_repository_name}"
@@ -22,7 +22,7 @@ module "pipeline" {
 }
 
 module "ecs" {
-  source              = "../../modules/ecs"
+  source              = "modules/ecs"
   vpc_id              = "${module.vpc.vpc_id}"
   cluster_name        = "${var.cluster_name}"
   container_name      = "${var.container_name}"
