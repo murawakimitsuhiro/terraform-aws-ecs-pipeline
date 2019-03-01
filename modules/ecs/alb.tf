@@ -1,6 +1,6 @@
 # Target Group for Web App
 resource "aws_alb_target_group" "api_target_group" {
-  name        = "${var.cluster_name}-alb-target-group"
+  name        = "${var.cluster_name}"
   port        = "${var.container_port}"
   protocol    = "HTTP"
   vpc_id      = "${var.vpc_id}"
