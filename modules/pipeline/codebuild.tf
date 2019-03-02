@@ -4,7 +4,7 @@ data "template_file" "buildspec" {
   vars {
     repository_url = "${var.repository_url}"
 
-    # region         = "${var.region}"
+    region         = "${var.region}"
     cluster_name   = "${var.cluster_name}"
     container_name = "${var.container_name}"
 
