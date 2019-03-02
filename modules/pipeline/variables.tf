@@ -28,9 +28,10 @@ variable "subnet_ids" {
   description = "Subnet ids"
 }
 
-#variable "region" {
-#  description = "The region to use"
-#}
+variable "region" {
+  description = "The region to use"
+  default     = "ap-northeast-1"
+}
 
 variable "container_name" {
   description = "Container name"
