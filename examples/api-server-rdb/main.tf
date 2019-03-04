@@ -3,7 +3,8 @@ provider "aws" {
 }
 
 module "ecs-pipeline" {
-  source = "github.com/murawakimitsuhiro/terraform-aws-ecs-pipeline"
+  source  = "murawakimitsuhiro/ecs-pipeline/aws"
+  version = "0.1.1"
 
   cluster_name        = "example"
   alb_port            = "9000"
