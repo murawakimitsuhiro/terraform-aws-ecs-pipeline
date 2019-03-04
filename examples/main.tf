@@ -1,7 +1,5 @@
 provider "aws" {
   region = "ap-northeast-1"
-
-  # profile = "ispec-murawaki"
 }
 
 module "ecs-pipeline" {
@@ -9,7 +7,7 @@ module "ecs-pipeline" {
 
   cluster_name        = "example-pipeline"
   alb_port            = "9000"
-  container_port      = "9000"
+  container_port      = "9010"
   app_repository_name = "example-ecr"
   container_name      = "example-container"
 
