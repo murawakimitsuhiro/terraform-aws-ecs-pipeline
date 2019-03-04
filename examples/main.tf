@@ -5,7 +5,7 @@ provider "aws" {
 module "ecs-pipeline" {
   source = "github.com/murawakimitsuhiro/terraform-aws-ecs-pipeline"
 
-  cluster_name        = "example-pipeline"
+  cluster_name        = "example"
   alb_port            = "9000"
   container_port      = "9010"
   app_repository_name = "example-ecr"
