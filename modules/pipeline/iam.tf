@@ -1,5 +1,5 @@
 resource "aws_iam_role" "codepipeline_role" {
-  name               = "codepipeline-role"
+  name               = "${var.app_repository_name}-codepipeline-role"
   assume_role_policy = "${file("${path.module}/templates/policies/codepipeline_role.json")}"
 }
 
@@ -18,7 +18,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 }
 
 resource "aws_iam_role" "codebuild_role" {
-  name               = "codebuild-role"
+  name               = "${var.app_repository_name}-codebuild-role"
   assume_role_policy = "${file("${path.module}/templates/policies/codebuild_role.json")}"
 }
 

@@ -80,9 +80,10 @@ variable "cpu_to_scale_down" {
   description = "CPU % to Scale Down the number of containers"
 }
 
-#variable "db_host_endpoint" {
-#  description = "RDS generated MySQL DB instance endpoint"
-#}
+variable "helth_check_path" {
+  description = ""
+  default = "/"
+}
 
 variable "environment_variables" {
   type        = "map"

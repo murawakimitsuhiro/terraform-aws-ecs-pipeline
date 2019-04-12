@@ -11,7 +11,7 @@ resource "aws_alb_target_group" "api_target_group" {
   }
 
   health_check {
-    path = "/ping"
+    path = "${var.helth_check_path}"
   }
 
   depends_on = ["aws_alb.app_alb"]

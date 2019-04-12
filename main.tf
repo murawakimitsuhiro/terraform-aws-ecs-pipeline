@@ -42,6 +42,7 @@ module "ecs" {
   desired_task_cpu    = "${var.desired_task_cpu}"
   desired_task_memory = "${var.desired_task_memory}"
 
+  helth_check_path = "${var.helth_check_path}"
   environment_variables = "${var.environment_variables}"
 
   security_groups_ids = [
