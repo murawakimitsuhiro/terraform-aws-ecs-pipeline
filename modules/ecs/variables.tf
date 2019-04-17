@@ -82,7 +82,7 @@ variable "cpu_to_scale_down" {
 
 variable "helth_check_path" {
   description = ""
-  default = "/"
+  default     = "/"
 }
 
 variable "environment_variables" {
