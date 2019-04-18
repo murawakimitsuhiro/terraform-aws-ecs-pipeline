@@ -3,6 +3,6 @@ provider "aws" {
 }
 
 locals {
-  application_name       = "go-simple-restful-api"
+  application_name       = "simple-go-ping"
   application_name_lower = "${replace(lower(local.application_name), "/[^a-z0-9]/", "")}"
 }

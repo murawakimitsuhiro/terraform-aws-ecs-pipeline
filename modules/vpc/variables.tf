@@ -26,4 +26,3 @@ variable "container_port" {
 #variable "db_password" {
 #  description = "RDS Mysql Database Passward"
 #}
-
