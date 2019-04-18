@@ -1,8 +1,6 @@
 module "vpc" {
   source         = "modules/vpc"
   cluster_name   = "${var.cluster_name}"
-  alb_port       = "${var.alb_port}"
-  container_port = "${var.container_port}"
 }
 
 module "pipeline" {
@@ -28,9 +26,6 @@ module "ecs" {
   container_name      = "${var.container_name}"
   public_subnet_1a    = "${module.vpc.public_subnet_1a}"
   public_subnet_1b    = "${module.vpc.public_subnet_1b}"
-  app_sg_id           = "${module.vpc.app_sg_id}"
-  alb_sg_id           = "${module.vpc.alb_sg_id}"
-  ecs_sg_id           = "${module.vpc.ecs_sg_id}"
   app_repository_name = "${var.app_repository_name}"
   alb_port            = "${var.alb_port}"
   container_port      = "${var.container_port}"
@@ -44,12 +39,6 @@ module "ecs" {
 
   helth_check_path      = "${var.helth_check_path}"
   environment_variables = "${var.environment_variables}"
-
-  security_groups_ids = [
-    "${module.vpc.app_sg_id}",
-    "${module.vpc.alb_sg_id}",
-    "${module.vpc.ecs_sg_id}",
-  ]
 
   availability_zones = [
     "${module.vpc.public_subnet_1a}",

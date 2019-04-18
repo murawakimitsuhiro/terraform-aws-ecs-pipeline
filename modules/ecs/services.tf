@@ -1,3 +1,11 @@
+locals {
+  security_group_ids = [
+    "${aws_security_group.app_sg.id}",
+    "${aws_security_group.alb_sg.id}",
+    "${aws_security_group.ecs_sg.id}",
+  ]
+}
+
 resource "aws_ecs_service" "web-api" {
   name            = "${var.cluster_name}"
   task_definition = "${aws_ecs_task_definition.web-api.arn}"
@@ -8,7 +16,7 @@ resource "aws_ecs_service" "web-api" {
   depends_on = ["aws_iam_role_policy.ecs_service_role_policy"]
 
   network_configuration {
-    security_groups  = ["${var.security_groups_ids}"]
+    security_groups  = ["${local.security_group_ids}"]
     subnets          = ["${var.availability_zones}"]
     assign_public_ip = true
   }

@@ -2,8 +2,7 @@
 resource "aws_security_group" "app_sg" {
   name        = "${var.cluster_name}-app-sg"
   description = "Default security group to allow inbound/outbound from the VPC"
-  vpc_id      = "${aws_vpc.cluster_vpc.id}"
-  depends_on  = ["aws_vpc.cluster_vpc"]
+  vpc_id      = "${var.vpc_id}"
 
   ingress {
     from_port = "0"
@@ -28,7 +27,7 @@ resource "aws_security_group" "app_sg" {
 resource "aws_security_group" "alb_sg" {
   name        = "${var.cluster_name}-alb-sg"
   description = "ALB Security Group"
-  vpc_id      = "${aws_vpc.cluster_vpc.id}"
+  vpc_id      = "${var.vpc_id}"
 
   ingress {
     from_port   = "${var.alb_port}"
@@ -58,7 +57,7 @@ resource "aws_security_group" "alb_sg" {
 
 # ECS Cluster Security Group
 resource "aws_security_group" "ecs_sg" {
-  vpc_id      = "${aws_vpc.cluster_vpc.id}"
+  vpc_id      = "${var.vpc_id}"
   name        = "${var.cluster_name}-ecs-service-sg"
   description = "Allow egress from container"
 
@@ -81,23 +80,3 @@ resource "aws_security_group" "ecs_sg" {
     Environment = "${var.cluster_name}"
   }
 }
-
-# RDB Security Group
-#resource "aws_security_group" "db" {
-#    name        = "db_server"
-#    description = "It is a security group on db of tf_vpc."
-#    vpc_id      = "${aws_vpc.cluster_vpc.id}"
-#    tags {
-#        Name = "${var.cluster_name}_db"
-#    }
-#}
-#
-#resource "aws_security_group_rule" "db" {
-#    type                     = "ingress"
-#    from_port                = 3306
-#    to_port                  = 3306
-#    protocol                 = "tcp"
-#    cidr_blocks              = ["0.0.0.0/0"]
-#    security_group_id        = "${aws_security_group.db.id}"
-#}
-

@@ -36,14 +36,3 @@ resource "aws_route_table_association" "public_subnet_us_east_1b_association" {
   route_table_id = "${aws_vpc.cluster_vpc.main_route_table_id}"
 }
 
-# RDS subnet
-#resource "aws_db_subnet_group" "main" {
-#  name        = "tf_dbsubnet"
-#  description = "It is a DB subnet group on tf_vpc."
-#  subnet_ids  = ["${aws_subnet.public_subnet_us_east_1a.id}", "${aws_subnet.public_subnet_us_east_1b.id}"]
-#
-#  tags {
-#    Name = "tf_dbsubnet"
-#  }
-#}
-
