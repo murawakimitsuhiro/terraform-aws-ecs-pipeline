@@ -10,7 +10,7 @@ variable "is_need_vpc" {
 
 variable "vpc_id" {
   description = "If you use an external vpc"
-  default = ""
+  default     = ""
 }
 
 variable "public_subnet_1a" {

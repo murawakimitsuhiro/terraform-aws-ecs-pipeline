@@ -10,14 +10,14 @@ module "vpc" {
 }
 
 locals {
-  vpc_id = "${var.vpc_id == "" ? module.vpc.vpc_id : var.vpc_id}"
+  vpc_id           = "${var.vpc_id == "" ? module.vpc.vpc_id : var.vpc_id}"
   public_subnet_1a = "${var.public_subnet_1a == "" ? module.vpc.public_subnet_1a : var.public_subnet_1a}"
   public_subnet_1b = "${var.public_subnet_1b == "" ? module.vpc.public_subnet_1b : var.public_subnet_1b}"
-  subnet_ids = "${list(local.public_subnet_1a, local.public_subnet_1b)}"
+  subnet_ids       = "${list(local.public_subnet_1a, local.public_subnet_1b)}"
 }
 
 module "pipeline" {
-  source              = "modules/pipeline"
+  source = "modules/pipeline"
 
   cluster_name        = "${var.cluster_name}"
   container_name      = "${var.container_name}"
