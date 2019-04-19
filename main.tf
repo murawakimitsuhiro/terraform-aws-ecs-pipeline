@@ -1,27 +1,40 @@
+locals {
+  is_need_vpc = "${var.vpc_id == "" ? 1 : 0}"
+}
+
 module "vpc" {
-  source         = "modules/vpc"
-  cluster_name   = "${var.cluster_name}"
+  source = "git@github.com:ispec-inc/terraform-aws-vpc-public.git"
+
+  cluster_name = "${var.cluster_name}"
+  vpc_count    = "${var.is_need_vpc}"
+}
+
+locals {
+  vpc_id = "${var.vpc_id == "" ? module.vpc.vpc_id : var.vpc_id}"
+  public_subnet_1a = "${var.public_subnet_1a == "" ? module.vpc.public_subnet_1a : var.public_subnet_1a}"
+  public_subnet_1b = "${var.public_subnet_1b == "" ? module.vpc.public_subnet_1b : var.public_subnet_1b}"
+  subnet_ids = "${list(local.public_subnet_1a, local.public_subnet_1b)}"
 }
 
 module "pipeline" {
   source              = "modules/pipeline"
+
   cluster_name        = "${var.cluster_name}"
   container_name      = "${var.container_name}"
   app_repository_name = "${var.app_repository_name}"
   git_repository      = "${var.git_repository}"
   repository_url      = "${module.ecs.repository_url}"
   app_service_name    = "${module.ecs.service_name}"
-  vpc_id              = "${module.vpc.vpc_id}"
+  vpc_id              = "${local.vpc_id}"
 
   subnet_ids = [
-    "${module.vpc.public_subnet_1a}",
-    "${module.vpc.public_subnet_1b}",
+    "${local.subnet_ids}",
   ]
 }
 
 module "ecs" {
   source              = "modules/ecs"
-  vpc_id              = "${module.vpc.vpc_id}"
+  vpc_id              = "${local.vpc_id}"
   cluster_name        = "${var.cluster_name}"
   container_name      = "${var.container_name}"
   public_subnet_1a    = "${module.vpc.public_subnet_1a}"
@@ -41,7 +54,6 @@ module "ecs" {
   environment_variables = "${var.environment_variables}"
 
   availability_zones = [
-    "${module.vpc.public_subnet_1a}",
-    "${module.vpc.public_subnet_1b}",
+    "${local.subnet_ids}",
   ]
 }
