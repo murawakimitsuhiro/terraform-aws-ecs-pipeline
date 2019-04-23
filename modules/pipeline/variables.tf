@@ -36,3 +36,8 @@ variable "region" {
 variable "container_name" {
   description = "Container name"
 }
+
+variable "build_args" {
+  type    = "map"
+  default = {}
+}

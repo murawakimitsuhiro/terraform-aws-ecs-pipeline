@@ -100,3 +100,8 @@ variable "environment_variables" {
     KEY = "value"
   }
 }
+
+variable "build_args" {
+  type    = "map"
+  default = {}
+}

@@ -1,3 +1,8 @@
+locals {
+  needsBuildArgs      = "${length(var.build_args) > 0}"
+  buildArgsCommandStr = "--build-arg ${join(" --build-arg ", formatlist("%s=%s", keys(var.build_args), values(var.build_args)))}"
+}
+
 data "template_file" "buildspec" {
   template = "${file("${path.module}/templates/buildspec.yml")}"
 
@@ -8,8 +13,9 @@ data "template_file" "buildspec" {
     cluster_name   = "${var.cluster_name}"
     container_name = "${var.container_name}"
 
-    # subnet_id          = "${var.run_task_subnet_id}"
     security_group_ids = "${join(",",var.subnet_ids)}"
+
+    build_options = "${local.needsBuildArgs ? local.buildArgsCommandStr : ""}"
   }
 }
 
