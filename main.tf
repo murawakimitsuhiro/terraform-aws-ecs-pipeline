@@ -53,6 +53,7 @@ module "ecs" {
 
   helth_check_path      = "${var.helth_check_path}"
   environment_variables = "${var.environment_variables}"
+  ssl_certificate_arn   = "${var.ssl_certificate_arn}"
 
   availability_zones = [
     "${local.subnet_ids}",

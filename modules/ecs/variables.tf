@@ -72,3 +72,9 @@ variable "environment_variables" {
   type        = "map"
   description = "ecs task environment variables"
 }
+
+variable "ssl_certificate_arn" {
+  type        = "string"
+  description = "ssl certification arn"
+  default     = ""
+}

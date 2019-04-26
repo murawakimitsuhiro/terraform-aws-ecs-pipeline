@@ -105,3 +105,9 @@ variable "build_args" {
   type    = "map"
   default = {}
 }
+
+variable "ssl_certificate_arn" {
+  type        = "string"
+  description = "ssl certification arn"
+  default     = ""
+}
