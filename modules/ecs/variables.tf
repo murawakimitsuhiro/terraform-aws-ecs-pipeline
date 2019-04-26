@@ -78,3 +78,8 @@ variable "ssl_certificate_arn" {
   description = "ssl certification arn"
   default     = ""
 }
+
+variable "domain_name" {
+  type    = "string"
+  default = ""
+}

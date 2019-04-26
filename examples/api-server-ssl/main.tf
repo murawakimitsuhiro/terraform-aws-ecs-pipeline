@@ -20,7 +20,7 @@ module "ecs-pipeline" {
 
   helth_check_path = "/ping"
 
-  #ssl_certificate_arn = "arn:aws:acm:ap-northeast-1:134783231240:certificate/d75c8111-057d-4dee-8805-d8a211288abb"
+  domain_name         = "${var.domain}"
   ssl_certificate_arn = "${data.aws_acm_certificate.example.arn}"
 }
 
