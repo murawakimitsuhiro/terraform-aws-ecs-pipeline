@@ -35,6 +35,7 @@ resource "aws_alb_target_group" "api_target_group" {
   depends_on = ["aws_alb.app_alb"]
 }
 
+# 直でALBヘアクセス
 resource "aws_alb_listener" "web_app" {
   count             = "${local.can_ssl ? 0 : 1}"
   load_balancer_arn = "${aws_alb.app_alb.arn}"
@@ -48,6 +49,7 @@ resource "aws_alb_listener" "web_app" {
   }
 }
 
+# SSLでドメインを介してアクセス
 resource "aws_alb_listener" "web_app_ssl" {
   count             = "${local.can_ssl ? 1 : 0}"
   load_balancer_arn = "${aws_alb.app_alb.arn}"
@@ -69,12 +71,17 @@ data "aws_route53_zone" "selected" {
   name = "${var.domain_name}."
 }
 
+# SSLを使わず、ドメインを介してアクセスするためのエイリアス
 resource "aws_route53_record" "alb_alias" {
   count = "${local.can_domain ? 1 : 0}"
 
   name    = "${var.domain_name}"
   zone_id = "${data.aws_route53_zone.selected.zone_id}"
   type    = "A"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   alias {
     name                   = "${aws_alb.app_alb.dns_name}"
@@ -83,6 +90,7 @@ resource "aws_route53_record" "alb_alias" {
   }
 }
 
+# SSLを使わず、ドメインを介してアクセス
 resource "aws_alb_listener" "web_app_http" {
   count = "${local.is_only_http ? 1 : 0}"
 
@@ -97,12 +105,17 @@ resource "aws_alb_listener" "web_app_http" {
   }
 }
 
+# SSLを使える状況で、SSlを使わないアクセスが来たらリダイレクトする
 resource "aws_lb_listener" "http_redirect_https" {
   count = "${local.is_redirect_https ? 1 : 0}"
 
   load_balancer_arn = "${aws_alb.app_alb.arn}"
   port              = "80"
   protocol          = "HTTP"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   default_action {
     type = "redirect"
