@@ -43,6 +43,10 @@ resource "aws_alb_listener" "web_app" {
   protocol          = "HTTP"
   depends_on        = ["aws_alb_target_group.api_target_group"]
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   default_action {
     target_group_arn = "${aws_alb_target_group.api_target_group.arn}"
     type             = "forward"
@@ -58,6 +62,10 @@ resource "aws_alb_listener" "web_app_ssl" {
   ssl_policy        = "ELBSecurityPolicy-2015-05"
 
   certificate_arn = "${var.ssl_certificate_arn}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   default_action {
     target_group_arn = "${aws_alb_target_group.api_target_group.arn}"
@@ -98,6 +106,10 @@ resource "aws_alb_listener" "web_app_http" {
   port              = "80"
   protocol          = "HTTP"
   depends_on        = ["aws_alb_target_group.api_target_group"]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   "default_action" {
     target_group_arn = "${aws_alb_target_group.api_target_group.arn}"
