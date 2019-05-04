@@ -3,7 +3,8 @@ locals {
 }
 
 module "vpc" {
-  source = "git@github.com:ispec-inc/terraform-aws-vpc-public.git"
+  source  = "ispec-inc/vpc-public/aws"
+  version = "1.0.0"
 
   cluster_name = "${var.cluster_name}"
   vpc_count    = "${var.is_need_vpc}"
